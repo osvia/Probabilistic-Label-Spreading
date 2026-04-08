@@ -133,8 +133,8 @@
           </a>
 
           <!-- Department of Mathematics TU Berlin -->
-          <a href="https://www.tu.berlin/en/math" target="_blank" rel="noopener noreferrer" class="block h-10">
-            <img src="./assets/images/tu_berlin.png" alt="TU Berlin" class="h-full w-auto" loading="lazy">
+          <a href="https://www.tu.berlin/en/math" target="_blank" rel="noopener noreferrer" class="block h-20">
+            <img src="./assets/images/tu_berlin_logo.jpg" alt="TU Berlin" class="h-full w-auto" loading="lazy">
           </a>
 
           <!-- University of Wuppertal Logo -->
@@ -192,10 +192,20 @@
 
 
         <!-- Title Images Row (unchanged) -->
-        <div class="flex flex-wrap justify-center gap-2 mt-6">
-          <img src="./assets/images/#"  alt="Title image 1"
-              class="h-32 w-auto max-w-[100%] md:max-w-none rounded-lg shadow-sm">
+        <div class="mt-6">
+        <div class="flex flex-wrap justify-center gap-2">
+          <img src="./assets/images/teaser-1.png" alt="Title image 1"
+            class="h-64 w-auto max-w-[48%] md:max-w-none rounded-lg shadow-sm border">
+          <img src="./assets/images/teaser-2.png" alt="Title image 2"
+            class="h-64 w-auto max-w-[48%] md:max-w-none rounded-lg shadow-sm border">
         </div>
+
+        <p class="mt-2 text-center text-sm text-gray-500">
+          Probabilistic label spreading estimates soft labels based
+          on few noisy annotations through graph-based propagation (a).
+          <br>It also estimates epistemic uncertainty of soft labels (b).
+        </p>
+</div>
       </header>
       <!-- /HERO -->
 
@@ -232,57 +242,70 @@
                 <img src="./assets/images/Two_Moons_Illustration.png" 
                     alt="method_image0" 
                     loading="lazy" 
-                    class="md:w-l h-auto object-cover">
+                    class="md:w-[65%] h-auto object-cover">
               </figure>
             </div>
-          ⠀
           </p>
           
       </section>
 
       <!-- Performance overview -->
-      <section id="overview" class="space-y-6 bg-gray-100 rounded-xl px-6 py-8 lg:max-w-6xl lg:mx-auto">
-        <h2 class="text-2xl font-semibold">Performance on common image classification datasets</h2>
-        <p>
-          <div class="grid md:grid-cols-1 gap-x-6 gap-y-8">
-            <div class="space-y-3">
-              <figure class="rounded-lg overflow-hidden flex items-center justify-center">
-                <img src="./assets/images/RMSE_trajectory_comparison (1).png" 
-                    alt="method_image0" 
-                    loading="lazy" 
-                    class="md:w-xl h-auto object-cover">
-              </figure>
-            </div>
-          ⠀
-          </p>
+      <section id="overview" class="space-y-8 bg-gray-100 rounded-xl px-6 py-8 lg:max-w-6xl lg:mx-auto">
+        <h2 class="text-2xl font-semibold">
+          Performance on common image classification datasets
+        </h2>
 
-          <h2 class="text-2xl font-semibold">Performance on DCIC Benchmark (Schmarje et al. 2022)</h2>
-          <p>
-            In this benchmark, the task is to label 10 probabilistic
-            datasets based on provided noisy annotations such that an image
-            classifier trained on those labels generalizes to unseen data.
-            Since labels are probabilistic, performance is measured using
-            the KL divergence. For comparison, the mean and median
-            performance differences relative to a fully supervised baseline
-            are reported across datasets. As shown in table III, our method
-            outperforms the state of the art in this benchmark. It is
-            best on low annotation budgets as well as on large budgets
-            where each image is annotated at least once. This reflects
-            the flexibility of our approach, enabled by the choice of
-            the spreading intensity $\alpha$, which can be reduced for larger
-            annotation budgets.
-          <div class="grid md:grid-cols-1 gap-x-6 gap-y-8">
-            <div class="space-y-3">
-              <figure class="rounded-lg overflow-hidden flex items-center justify-center">
-                <img src="./assets/images/RMSE_trajectories_PLS_CIFAR10-H_CLIP+UMAP_d=20_k=20 (1).png" 
-                    alt="method_image0" 
-                    loading="lazy" 
-                    class="md:w-xl h-auto object-cover">
-              </figure>
-            </div>
-          ⠀
-          </p>
-          
+        <p>
+          On the Cifar-10-H dataset that contains crowdsourced annotations, we compare
+          the performance trajectories of our method with the ones of the baseline
+          algorithms. The Gaussian Kernel baseline can compare to the PLS algorithm
+          with large $\alpha$-values in the regime of few feedbacks and all methods
+          surpass CLIP zero shot performance at a certain annotation budget. The choice
+          of the hyperparameter $\alpha$ steers the stiffness of the estimated function
+          which navigates the trade-off between label efficiency and estimation accuracy.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-3">
+            <figure class="rounded-lg overflow-hidden flex items-center justify-center">
+              <img
+                src="./assets/images/RMSE_trajectory_comparison (1).png"
+                alt="Performance trajectory comparison on Cifar-10-H"
+                loading="lazy"
+                class="w-full md:w-[100%] h-auto object-contain"
+              >
+            </figure>
+          </div>
+
+          <div class="space-y-3">
+            <figure class="rounded-lg overflow-hidden flex items-center justify-center">
+              <img
+                src="./assets/images/RMSE_trajectories_PLS_CIFAR10-H_CLIP+UMAP_d=20_k=20 (1).png"
+                alt="RMSE trajectories for PLS on Cifar-10-H"
+                loading="lazy"
+                class="w-full md:w-[100%] h-auto object-contain"
+              >
+            </figure>
+          </div>
+        </div>
+
+        <h2 class="text-2xl font-semibold">
+          Performance on DCIC Benchmark (Schmarje et al. 2022)
+        </h2>
+
+        <p>
+          In this benchmark, the task is to label 10 probabilistic datasets based on
+          provided noisy annotations such that an image classifier trained on those
+          labels generalizes to unseen data. Since labels are probabilistic,
+          performance is measured using the KL divergence. For comparison, the mean
+          and median performance differences relative to a fully supervised baseline
+          are reported across datasets. As shown in table III, our method outperforms
+          the state of the art in this benchmark. It is best on low annotation budgets
+          as well as on large budgets where each image is annotated at least once.
+          This reflects the flexibility of our approach, enabled by the choice of the
+          spreading intensity $\alpha$, which can be reduced for larger annotation
+          budgets.
+        </p>
       </section>
       
       <!-- results -->
@@ -298,7 +321,10 @@
           for which we exploit the neighborhood structure and the fact
           that weights are multiplied with α on each edge so that the
           influence from nodes via long paths is small. We derived the following theorem:
-          <br><br>
+          <br>
+          <h3  class="text-2xl font-semibold">Theorem (Consistency of Label Spreading Estimates under Sublinear Annotation Growth)</h3>
+          <br>
+
           Let $\varepsilon> 0$ and $\delta \in(0,1)$. Under the above assumptions, when choosing the spreading intensity as \mbox{$\alpha_n = 1 - n^{\frac{1}{d+1}} \to 1$} dependent on the dataset size, the bandwidth of the epsilon-graph as \mbox{$h_n = \varepsilon /  (3 L_y \lceil\log_{\alpha_n} \varepsilon / (\sqrt{2}\,12) \rceil) \to 0$}, and providing an annotation budget of at least \mbox{$m_n = O(n^{1 - \frac{1}{2(d+1)}} \log n)$}, for n sufficiently large, the PLS algorithm returns estimated soft labels $\hat{p}_1, \ldots, \hat{p}_n$ such that \mbox{$P(\exists\, q\in\{1,\ldots, n\}: \| \hat{p}_q - p_q\|_2 > \varepsilon) \leq \delta$}.
 
               More precisely, depending on $\varepsilon$ and $\delta$, the following sample complexity bound holds for $n$:
@@ -369,14 +395,14 @@ EFRE20800529).</p>
                       bg-gray-100 rounded-lg p-3
                       text-[0.70rem] leading-5 font-mono
                       text-gray-700 select-all">
-                      @misc{klees2026probabilisticlabelspreadingefficient,
-      title={Probabilistic Label Spreading: Efficient and Consistent Estimation of Soft Labels with Epistemic Uncertainty on Graphs}, 
-      author={Jonathan Klees and Tobias Riedlinger and Peter Stehr and Bennet Böddecker and Daniel Kondermann and Matthias Rottmann},
-      year={2026},
-      eprint={2602.04574},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2602.04574}, 
+@misc{klees2026probabilisticlabelspreadingefficient,
+title={Probabilistic Label Spreading: Efficient and Consistent Estimation of Soft Labels with Epistemic Uncertainty on Graphs}, 
+author={Jonathan Klees and Tobias Riedlinger and Peter Stehr and Bennet Böddecker and Daniel Kondermann and Matthias Rottmann},
+year={2026},
+eprint={2602.04574},
+archivePrefix={arXiv},
+primaryClass={cs.LG},
+url={https://arxiv.org/abs/2602.04574}, 
 }
           </pre>
 
