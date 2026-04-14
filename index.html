@@ -195,15 +195,15 @@
         <div class="mt-6">
         <div class="flex flex-wrap justify-center gap-2">
           <img src="./assets/images/teaser-1.png" alt="Title image 1"
-            class="h-64 w-auto max-w-[48%] md:max-w-none rounded-lg shadow-sm border">
+            class="h-80 md:h-96 w-auto max-w-[48%] md:max-w-none rounded-lg shadow-sm border">
           <img src="./assets/images/teaser-2.png" alt="Title image 2"
-            class="h-64 w-auto max-w-[48%] md:max-w-none rounded-lg shadow-sm border">
+            class="h-80 md:h-96 w-auto max-w-[48%] md:max-w-none rounded-lg shadow-sm border">
         </div>
 
         <p class="mt-2 text-center text-sm text-gray-500">
           Probabilistic label spreading estimates soft labels based
-          on few noisy annotations through graph-based propagation (a).
-          <br>It also estimates epistemic uncertainty of soft labels (b).
+          on few noisy annotations through graph-based propagation (left).
+          <br>It also estimates epistemic uncertainty of soft labels (right).
         </p>
 </div>
       </header>
@@ -215,7 +215,6 @@
         <h2 class="text-2xl font-semibold">Abstract</h2>
         <p>
           This work tackles a central challenge in data-centric AI: How to obtain reliable, informative labels for large datasets when high-quality human annotations are scarce and noisy.
-          <br><br>
           The key idea is to move beyond single “hard” labels and instead estimate soft labels, probability distributions over classes, together with epistemic uncertainty, which reflects how confident we are in those estimates. Our proposed method propagates sparse and noisy human annotations across a similarity graph using a probabilistic extension of the label spreading algorithm. By exploiting similarity structure in the feature space, it can infer high-quality soft labels even when the number of annotations per data point is small.
           <br><br>
           Beyond empirical gains, the approach comes with strong theoretical guarantees. We show that probabilistic label spreading yields consistent estimates under mild smoothness assumptions, and we derive PAC-style bounds on the required dataset size and annotation budget. Extensive experiments on standard image benchmarks demonstrate substantial reductions in labeling effort and state-of-the-art performance on a data-centric image classification benchmark. Overall, the work offers a principled and scalable step toward uncertainty-aware, semi-automated dataset labeling.
@@ -239,7 +238,7 @@
           <div class="grid md:grid-cols-1 gap-x-6 gap-y-8">
             <div class="space-y-3">
               <figure class="rounded-lg overflow-hidden flex items-center justify-center">
-                <img src="./assets/images/Two_Moons_Illustration.png" 
+                <img src="./assets/images/pls.gif" 
                     alt="method_image0" 
                     loading="lazy" 
                     class="md:w-[65%] h-auto object-cover">
@@ -252,17 +251,11 @@
       <!-- Performance overview -->
       <section id="overview" class="space-y-8 bg-gray-100 rounded-xl px-6 py-8 lg:max-w-6xl lg:mx-auto">
         <h2 class="text-2xl font-semibold">
-          Performance on common image classification datasets
+          Performance Comparison with Baselines
         </h2>
 
         <p>
-          On the Cifar-10-H dataset that contains crowdsourced annotations, we compare
-          the performance trajectories of our method with the ones of the baseline
-          algorithms. The Gaussian Kernel baseline can compare to the PLS algorithm
-          with large $\alpha$-values in the regime of few feedbacks and all methods
-          surpass CLIP zero shot performance at a certain annotation budget. The choice
-          of the hyperparameter $\alpha$ steers the stiffness of the estimated function
-          which navigates the trade-off between label efficiency and estimation accuracy.
+          On the Cifar-10-H dataset that contains crowdsourced annotations, we compare the performance trajectories of our method with the ones of the baseline algorithms. k Nearest Neighbor regression is outperformed by Gaussian Kernel regression and the PLS algorithm, particularly in the regime of few feedbacks. While the Gaussian Kernel can compare to PLS algorithm, performance gains of our method are more pronounced on datasets such as Two Moons, where density-based clustering is beneficial. All methods surpass CLIP zero shot performance at a certain annotation budget. As can be seen in the right plot, the choice of the hyperparameter  $\alpha$ steers the stiffness of the estimated function which navigates the trade-off between label efficiency and estimation accuracy.
         </p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -306,6 +299,47 @@
           spreading intensity $\alpha$, which can be reduced for larger annotation
           budgets.
         </p>
+
+        <div class="space-y-3">
+           <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left border-collapse">
+              <caption class="mb-4 text-base font-medium text-gray-900">
+                Benchmark comparison of label improvement methods under various budgets (PLS α: 0.9, 0.75, 0.1).
+              </caption>
+              <thead class="border-t-2 border-b border-black">
+                <tr>
+                  <th class="py-2 pr-4 font-bold">Method</th>
+                  <th colspan="2" class="py-2 text-center border-b">10% Budget</th>
+                  <th colspan="2" class="py-2 text-center border-b">100% Budget</th>
+                  <th colspan="2" class="py-2 text-center border-b">1000% Budget</th>
+                </tr>
+                <tr class="text-xs uppercase">
+                  <th class="py-2 pr-4"></th>
+                  <th class="px-2 py-2 text-center">Median</th>
+                  <th class="px-2 py-2 text-center">Mean (SEM)</th>
+                  <th class="px-2 py-2 text-center">Median</th>
+                  <th class="px-2 py-2 text-center">Mean (SEM)</th>
+                  <th class="px-2 py-2 text-center">Median</th>
+                  <th class="px-2 py-2 text-center">Mean (SEM)</th>
+                </tr>
+              </thead>
+              <tbody class="border-b-2 border-black">
+                <tr class="border-b border-gray-100">
+                  <td class="py-2 pr-4 font-medium">ELR+</td>
+                  <td class="text-center">-0.16</td><td class="text-center">-0.59 (0.22)</td>
+                  <td class="text-center">-0.13</td><td class="text-center">-0.17 (0.06)</td>
+                  <td class="text-center">0.15</td><td class="text-center">0.24 (0.06)</td>
+                </tr>
+                <tr class="bg-blue-50 font-bold">
+                  <td class="py-2 pr-4">PLS (ours)</td>
+                  <td class="text-center">-0.42</td><td class="text-center">-0.82 (0.19)</td>
+                  <td class="text-center">-0.17</td><td class="text-center">-0.33 (0.08)</td>
+                  <td class="text-center">-0.02</td><td class="text-center">-0.03 (0.01)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          </div>
       </section>
       
       <!-- results -->
@@ -322,18 +356,25 @@
           that weights are multiplied with α on each edge so that the
           influence from nodes via long paths is small. We derived the following theorem:
           <br>
-          <h3  class="text-2xl font-semibold">Theorem (Consistency of Label Spreading Estimates under Sublinear Annotation Growth)</h3>
-          <br>
+          <h3 class="text-xl font-semibold">Theorem (Consistency of Label Spreading Estimates under Sublinear Annotation Growth)</h3>
+        <br>
 
-          Let $\varepsilon> 0$ and $\delta \in(0,1)$. Under the above assumptions, when choosing the spreading intensity as \mbox{$\alpha_n = 1 - n^{\frac{1}{d+1}} \to 1$} dependent on the dataset size, the bandwidth of the epsilon-graph as \mbox{$h_n = \varepsilon /  (3 L_y \lceil\log_{\alpha_n} \varepsilon / (\sqrt{2}\,12) \rceil) \to 0$}, and providing an annotation budget of at least \mbox{$m_n = O(n^{1 - \frac{1}{2(d+1)}} \log n)$}, for n sufficiently large, the PLS algorithm returns estimated soft labels $\hat{p}_1, \ldots, \hat{p}_n$ such that \mbox{$P(\exists\, q\in\{1,\ldots, n\}: \| \hat{p}_q - p_q\|_2 > \varepsilon) \leq \delta$}.
+        <p>
+          Let $\varepsilon > 0$ and $\delta \in (0, 1)$. Under the above assumptions, when choosing the 
+          spreading intensity as $\alpha_n = 1 - n^{-\frac{1}{d+1}} \to 1$ dependent on the dataset size, 
+          the bandwidth of the epsilon-graph as $h_n = \varepsilon / (3 L_y \lceil\log_{\alpha_n} (\varepsilon / 12\sqrt{2}) \rceil) \to 0$, 
+          and providing an annotation budget of at least $m_n = O(n^{1 - \frac{1}{2(d+1)}} \log n)$, for $n$ 
+          sufficiently large, the PLS algorithm returns estimated soft labels $\hat{p}_1, \dots, \hat{p}_n$ 
+          such that $P(\exists q \in \{1, \dots, n\} : \|\hat{p}_q - p_q\|_2 > \varepsilon) \leq \delta$.
 
-              More precisely, depending on $\varepsilon$ and $\delta$, the following sample complexity bound holds for $n$:
-              \begin{align}
-                  &P(\exists\, q\in\{1,\ldots, n\}: \| \hat{p}_q - p_q\|_2 > \varepsilon) \nonumber \\ &\leq 12 n C \exp\left( - \zeta  \frac{m_n}{n^{1-\frac{1}{2(d+1)}}}\right)
-              \end{align}
-              with some constant $\zeta$ depending on $\varepsilon$, the minimal and maximal density $p_{\min}$, $p_{\max}$, the feature space $\mathcal{X}$ and its dimension $d$, the number of classes $C$, and the Lipschitz constant $L_y$.
+          More precisely, depending on $\varepsilon$ and $\delta$, the following sample complexity bound holds for $n$:
+          \[
+          P(\exists q \in \{1, \dots, n\} : \|\hat{p}_q - p_q\|_2 > \varepsilon) \leq 12 n C \exp\left( - \zeta \frac{m_n}{n^{1-\frac{1}{2(d+1)}}}\right)
+          \]
+          with some constant $\zeta$ depending on $\varepsilon$, the minimal and maximal density $p_{\min}, p_{\max}$, 
+          the feature space $\mathcal{X}$ and its dimension $d$, the number of classes $C$, and the Lipschitz constant $L_y$.
           ⠀
-          </p>
+        </p>
           
       </section>
 
