@@ -200,7 +200,7 @@
             class="h-80 md:h-96 w-auto max-w-[48%] md:max-w-none rounded-lg shadow-sm border">
         </div>
 
-        <p class="mt-2 text-center text-sm text-gray-500">
+        <p class="mt-2 text-center text-base text-gray-500">
           Probabilistic label spreading estimates soft labels based
           on few noisy annotations through graph-based propagation (left).
           <br>It also estimates epistemic uncertainty of soft labels (right).
@@ -240,7 +240,7 @@
               <figure class="rounded-lg overflow-hidden flex items-center justify-center">
                 <img src="./assets/images/pls.gif" 
                     alt="method_image0" 
-                    loading="lazy" 
+                    loading="eager" 
                     class="md:w-[65%] h-auto object-cover">
               </figure>
             </div>
@@ -301,7 +301,7 @@
         </p>
 
         <div class="space-y-3">
-           <div class="overflow-x-auto">
+          <div class="overflow-x-auto">
             <table class="min-w-full text-sm text-left border-collapse">
               <caption class="mb-4 text-base font-medium text-gray-900">
                 Benchmark comparison of label improvement methods under various budgets (PLS α: 0.9, 0.75, 0.1).
@@ -326,20 +326,98 @@
               <tbody class="border-b-2 border-black">
                 <tr class="border-b border-gray-100">
                   <td class="py-2 pr-4 font-medium">ELR+</td>
-                  <td class="text-center">-0.16</td><td class="text-center">-0.59 (0.22)</td>
-                  <td class="text-center">-0.13</td><td class="text-center">-0.17 (0.06)</td>
-                  <td class="text-center">0.15</td><td class="text-center">0.24 (0.06)</td>
+                  <td class="text-center">-0.16</td>
+                  <td class="text-center">-0.59 (0.22)</td>
+                  <td class="text-center">-0.13</td>
+                  <td class="text-center">-0.17 (0.06)</td>
+                  <td class="text-center">0.15</td>
+                  <td class="text-center">0.24 (0.06)</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2 pr-4 font-medium">SGNP</td>
+                  <td class="text-center">-0.26</td>
+                  <td class="text-center">-0.59 (0.27)</td>
+                  <td class="text-center">0.00</td>
+                  <td class="text-center">-0.15 (0.08)</td>
+                  <td class="text-center">0.20</td>
+                  <td class="text-center">0.26 (0.04)</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2 pr-4 font-medium">DivideMix</td>
+                  <td class="text-center">-0.21</td>
+                  <td class="text-center">-0.78 (0.25)</td>
+                  <td class="text-center">-0.03</td>
+                  <td class="text-center">-0.17 (0.08)</td>
+                  <td class="text-center">0.16</td>
+                  <td class="text-center">0.31 (0.07)</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2 pr-4 font-medium">Mean</td>
+                  <td class="text-center">-0.14</td>
+                  <td class="text-center">-0.59 (0.22)</td>
+                  <td class="text-center">-0.12</td>
+                  <td class="text-center">-0.22 (0.08)</td>
+                  <td class="text-center">N/A</td>
+                  <td class="text-center">N/A</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2 pr-4 font-medium">π</td>
+                  <td class="text-center">-0.33</td>
+                  <td class="text-center">-0.63 (0.19)</td>
+                  <td class="text-center">-0.06</td>
+                  <td class="text-center">-0.17 (0.08)</td>
+                  <td class="text-center">N/A</td>
+                  <td class="text-center">N/A</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2 pr-4 font-medium">π+DC3</td>
+                  <td class="text-center">-0.32</td>
+                  <td class="text-center">-0.62 (0.20)</td>
+                  <td class="text-center">-0.10</td>
+                  <td class="text-center">-0.22 (0.06)</td>
+                  <td class="text-center">N/A</td>
+                  <td class="text-center">N/A</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2 pr-4 font-medium">PseudoV2h</td>
+                  <td class="text-center">-0.30</td>
+                  <td class="text-center">-0.39 (0.16)</td>
+                  <td class="text-center">-0.03</td>
+                  <td class="text-center">-0.19 (0.08)</td>
+                  <td class="text-center">0.19</td>
+                  <td class="text-center">0.28 (0.04)</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2 pr-4 font-medium">PseudoV2s</td>
+                  <td class="text-center">-0.28</td>
+                  <td class="text-center">-0.40 (0.19)</td>
+                  <td class="text-center">-0.04</td>
+                  <td class="text-center">-0.17 (0.06)</td>
+                  <td class="text-center">0.01</td>
+                  <td class="text-center">0.00 (0.02)</td>
+                </tr>
+                <tr class="border-b border-gray-100">
+                  <td class="py-2 pr-4 font-medium">MOCOv2</td>
+                  <td class="text-center">-0.29</td>
+                  <td class="text-center">-0.63 (0.22)</td>
+                  <td class="text-center">-0.08</td>
+                  <td class="text-center">-0.13 (0.10)</td>
+                  <td class="text-center">N/A</td>
+                  <td class="text-center">N/A</td>
                 </tr>
                 <tr class="bg-blue-50 font-bold">
                   <td class="py-2 pr-4">PLS (ours)</td>
-                  <td class="text-center">-0.42</td><td class="text-center">-0.82 (0.19)</td>
-                  <td class="text-center">-0.17</td><td class="text-center">-0.33 (0.08)</td>
-                  <td class="text-center">-0.02</td><td class="text-center">-0.03 (0.01)</td>
+                  <td class="text-center">-0.42</td>
+                  <td class="text-center">-0.82 (0.19)</td>
+                  <td class="text-center">-0.17</td>
+                  <td class="text-center">-0.33 (0.08)</td>
+                  <td class="text-center">-0.02</td>
+                  <td class="text-center">-0.03 (0.01)</td>
                 </tr>
               </tbody>
             </table>
           </div>
-          </div>
+        </div>
       </section>
       
       <!-- results -->
